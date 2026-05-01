@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Цветные кнопки — Арсен</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background: #1e1e2f;
+            color: white;
+        }
+        #colorBox {
+            width: 300px;
+            height: 200px;
+            margin: 30px auto;
+            background-color: gray;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        #redBtn {
+            background-color: #ff4757;
+            color: white;
+        }
+        #greenBtn {
+            background-color: #2ed573;
+            color: white;
+        }
+        #blueBtn {
+            background-color: #1e90ff;
+            color: white;
+        }
+
+        #prlBtn {
+            background-color: #36023d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Меняем цвет блока</h1>
+    <div id="colorBox"></div>
+    <button id="redBtn">🔴 Красный</button>
+    <button id="greenBtn">🟢 Зелёный</button>
+    <button id="blueBtn">🔵 Синий</button>
+    <button id ="prlBtn">фиолетовый</button>
+
+    <script>
+      const red1 = document.getElementById('redBtn');
+      const green1 = document.getElementById('greenBtn');
+      const blue1 = document.getElementById('blueBtn');
+      const colorbox = document.getElementById('colorBox');
+      const prl1 = document.getElementById('prlBtn');
+
+      red1.addEventListener('click', function(){
+
+        colorbox.style.backgroundColor = "#ff4757"
+      });
+
+       green1.addEventListener('click', function(){
+
+        colorbox.style.backgroundColor = "#2ed573"
+      });
+
+       blue1.addEventListener('click', function(){
+
+        colorbox.style.backgroundColor ="#1e90ff"
+      });
+
+      prl1.addEventListener('click', function(){
+
+        colorbox.style.backgroundColor = "#36023d"
+      })
+
+    </script>
+</body>
+</html>
