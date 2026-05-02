@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Погода в городе — Арсен</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 20px;
+            background: #f8f9fa;
+            min-height: 150px;
+        }
+
+        .city-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .temperature {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            color: #666;
+            text-transform: capitalize;
+        }
+
+        .details {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌤️ Weather</h1>
+        <div class="subtitle">Узнай погоду в любом городе</div>
+
+        <div class="search-box">
+            <input type="text" id="city" placeholder="Введите город, например, London">
+            <button id="getWeather">🔍 Найти</button>
+        </div>
+
+        <div id="result" class="result">
+            <div style="color: #aaa; text-align: center;">Введите город и нажмите "Найти"</div>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = "7bc56a593b0c3e256589efc6370bdc53";
+        const button = document.getElementById("getWeather");
+        const cityInput = document.getElementById("city");
+        const resultDiv = document.getElementById("result");
+
+        button.addEventListener("click", async () => {
+            const city = cityInput.value.trim();
+            if (!city) {
+                resultDiv.innerHTML = '<div class="error">Введите название города</div>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<div style="text-align: center;">⏳ Загрузка...</div>';
+
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.cod === "404") {
+                    resultDiv.innerHTML = `<div class="error">❌ Город "${city}" не найден</div>`;
+                    return;
+                }
+
+                const temp = Math.round(data.main.temp);
+                const feelsLike = Math.round(data.main.feels_like);
+                const description = data.weather[0].description;
+                const cityName = data.name;
+                const humidity = data.main.humidity;
+                const windSpeed = data.wind.speed;
+
+                resultDiv.innerHTML = `
+                    <div class="city-name">${cityName}</div>
+                    <div class="temperature">${temp}°C</div>
+                    <div class="description">${description}</div>
+                    <div class="details">
+                        <span>💧 Влажность: ${humidity}%</span>
+                        <span>🌬️ Ветер: ${windSpeed} м/с</span>
+                        <span>🤚 Ощущается как: ${feelsLike}°C</span>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="error">⚠️ Ошибка загрузки. Проверьте подключение к интернету.</div>';
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>
