@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tessum</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ЭКРАН ВХОДА -->
+<div id="loginScreen" class="screen active">
+    <div class="login-box">
+        <h1>✦ Tessum</h1>
+        <p>Войди или создай аккаунт</p>
+        <div class="input-group">
+            <input type="text" id="usernameInput" placeholder="Логин" />
+            <input type="password" id="passwordInput" placeholder="Пароль" />
+        </div>
+        <div class="error-msg" id="loginError"></div>
+        <button class="btn" id="loginBtn">Войти</button>
+        <button class="btn btn-outline" id="registerBtn">Зарегистрироваться</button>
+        <div class="toggle-link" id="toggleMode">
+            Нет аккаунта? <span>Зарегистрируйся</span>
+        </div>
+    </div>
+</div>
+
+<!-- ЭКРАН ЧАТА -->
+<div id="chatScreen" class="screen">
+    <div class="app-layout">
+        <!-- Левая панель -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>✦ Tessum</h2>
+                <button class="logout-btn" id="logoutBtn">Выйти</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Поиск..." />
+            </div>
+            <div class="contact-list" id="contactList">
+                <div class="contact-item active" data-user="general">
+                    <div class="avatar">📢</div>
+                    <div class="contact-info">
+                        <div class="contact-name">Общий чат</div>
+                        <div class="contact-preview">Пиши сюда...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Правая панель -->
+        <div class="chat-panel">
+            <div class="chat-header">
+                <div class="chat-user-info">
+                    <span class="chat-avatar">📢</span>
+                    <span class="chat-username" id="currentChatName">Общий чат</span>
+                </div>
+                <span class="online-status" id="onlineStatus">онлайн</span>
+            </div>
+
+            <div class="messages-area" id="messages">
+                <div class="message other"><div class="sender">Tessum</div>Привет! Это твой мессенджер.</div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="Сообщение..." />
+                <button class="btn-send" id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Подключаем библиотеки -->
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
