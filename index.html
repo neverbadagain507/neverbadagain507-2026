@@ -1,54 +1,78 @@
 <!DOCTYPE html>
-<!-- saved from url=(0033)http://127.0.0.1:5500/tessum.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tessum  </title>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tessum</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <h1> Oops, this domain was already taken :3 To purchase it, please contact Telegram =&gt; @neverbadagain507</h1>
-    
 
-    
+<!-- ЭКРАН ВХОДА -->
+<div id="loginScreen" class="screen active">
+    <div class="login-box">
+        <h1>✦ Tessum</h1>
+        <p>Войди или создай аккаунт</p>
+        <div class="input-group">
+            <input type="text" id="usernameInput" placeholder="Логин" />
+            <input type="password" id="passwordInput" placeholder="Пароль" />
+        </div>
+        <div class="error-msg" id="loginError"></div>
+        <button class="btn" id="loginBtn">Войти</button>
+        <button class="btn btn-outline" id="registerBtn">Зарегистрироваться</button>
+        <div class="toggle-link" id="toggleMode">
+            Нет аккаунта? <span>Зарегистрируйся</span>
+        </div>
+    </div>
+</div>
 
-   
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
+<!-- ЭКРАН ЧАТА -->
+<div id="chatScreen" class="screen">
+    <div class="app-layout">
+        <!-- Левая панель -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>✦ Tessum</h2>
+                <button class="logout-btn" id="logoutBtn">Выйти</button>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Поиск..." />
+            </div>
+            <div class="contact-list" id="contactList">
+                <div class="contact-item active" data-user="general">
+                    <div class="avatar">📢</div>
+                    <div class="contact-info">
+                        <div class="contact-name">Общий чат</div>
+                        <div class="contact-preview">Пиши сюда...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</body></html>
+        <!-- Правая панель -->
+        <div class="chat-panel">
+            <div class="chat-header">
+                <div class="chat-user-info">
+                    <span class="chat-avatar">📢</span>
+                    <span class="chat-username" id="currentChatName">Общий чат</span>
+                </div>
+                <span class="online-status" id="onlineStatus">онлайн</span>
+            </div>
+
+            <div class="messages-area" id="messages">
+                <div class="message other"><div class="sender">Tessum</div>Привет! Это твой мессенджер.</div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="messageInput" placeholder="Сообщение..." />
+                <button class="btn-send" id="sendBtn">➤</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Подключаем библиотеки -->
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
